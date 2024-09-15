@@ -23,7 +23,7 @@ pub fn tokenize(expression: &str) -> Result<Vec<Token>, String> {
             "/" => Ok(Token::Operator(Operator::Divide)),
 
             _ => match word.parse::<f64>() {
-                Ok(number) => Ok(Token::Operand(number)),
+                Ok(operand) => Ok(Token::Operand(operand)),
                 Err(_) => Err(format!(
                     "Error tokenizing expression: \"{word}\" is not a valid token."
                 )),
