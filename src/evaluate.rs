@@ -4,7 +4,7 @@ fn pop_operand(stack: &mut Vec<f64>) -> Result<f64, String> {
     match stack.pop() {
         Some(operand) => Ok(operand),
         None => Err(String::from(
-            "Error evaluating token sequence: stack is empty during operation.",
+            "Error evaluating token sequence: stack is empty.",
         )),
     }
 }
