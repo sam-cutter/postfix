@@ -27,7 +27,7 @@ pub fn evaluate(token_sequence: Vec<Token>) -> Result<f64, String> {
                     Operator::Divide => {
                         if right_operand == 0.0 {
                             return Err(String::from(
-                                "Error evaluating token sequence: division by 0.",
+                                "Error evaluating token sequence: division by zero.",
                             ));
                         }
 

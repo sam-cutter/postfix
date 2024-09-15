@@ -33,5 +33,5 @@ pub fn tokenize(expression: &str) -> Result<Vec<Token>, String> {
         token_sequence.push(token?);
     }
 
-    return Ok(token_sequence);
+    Ok(token_sequence)
 }
