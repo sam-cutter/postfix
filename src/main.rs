@@ -1,35 +1,18 @@
+mod evaluate;
 mod token;
 
-use token::{Operator, Token};
+fn main() {
+    let token_sequence = token::tokenize("0 3 +");
 
-fn evaluate(expression: Vec<Token>) -> f64 {
-    let mut stack: Vec<f64> = Vec::new();
+    match token_sequence {
+        Ok(token_sequence) => {
+            let result = evaluate::evaluate(token_sequence);
 
-    for token in expression {
-        match token {
-            Token::Operand(number) => stack.push(number),
-            Token::Operator(operator) => {
-                let second = stack.pop().unwrap();
-                let first = stack.pop().unwrap();
-
-                match operator {
-                    Operator::Add => stack.push(first + second),
-                    Operator::Subtract => stack.push(first - second),
-                    Operator::Multiply => stack.push(first * second),
-                    Operator::Divide => stack.push(first / second),
-                }
+            match result {
+                Ok(result) => println!("{result}"),
+                Err(e) => println!("{e}")
             }
         }
-    }
-
-    return stack.pop().unwrap();
-}
-
-fn main() {
-    let tokens = token::tokenize("9 3 /");
-
-    match tokens {
-        Ok(tokens) => println!("{}", evaluate(tokens)),
-        Err(e) => println!("{e}"),
+        Err(e) => println!("{e}")
     }
 }

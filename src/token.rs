@@ -11,7 +11,7 @@ pub enum Operator {
 }
 
 pub fn tokenize(expression: &str) -> Result<Vec<Token>, String> {
-    let mut tokens: Vec<Token> = Vec::new();
+    let mut token_sequence: Vec<Token> = Vec::new();
 
     let words = expression.trim().split(' ');
 
@@ -25,16 +25,13 @@ pub fn tokenize(expression: &str) -> Result<Vec<Token>, String> {
             _ => match word.parse::<f64>() {
                 Ok(number) => Ok(Token::Operand(number)),
                 Err(_) => Err(format!(
-                    "Error parsing token: \"{word}\" is not a valid token."
+                    "Error tokenizing expression: \"{word}\" is not a valid token."
                 )),
             },
         };
 
-        match token {
-            Ok(token) => tokens.push(token),
-            Err(e) => return Err(e),
-        }
+        token_sequence.push(token?);
     }
 
-    return Ok(tokens);
+    return Ok(token_sequence);
 }
