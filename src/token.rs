@@ -13,7 +13,7 @@ pub enum Operator {
 pub fn tokenize(expression: &str) -> Result<Vec<Token>, String> {
     let mut token_sequence: Vec<Token> = Vec::new();
 
-    let words = expression.trim().split(' ');
+    let words = expression.trim().split_whitespace();
 
     for word in words {
         let token: Result<Token, String> = match word {
