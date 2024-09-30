@@ -9,12 +9,12 @@ fn pop_operand(stack: &mut Vec<f64>) -> Result<f64, String> {
     }
 }
 
-pub fn evaluate(token_sequence: Vec<Token>) -> Result<f64, String> {
+pub fn evaluate(token_sequence: &Vec<Token>) -> Result<f64, String> {
     let mut stack: Vec<f64> = Vec::new();
 
     for token in token_sequence {
         match token {
-            Token::Operand(number) => stack.push(number),
+            Token::Operand(number) => stack.push(*number),
 
             Token::Operator(operator) => {
                 let right_operand = pop_operand(&mut stack)?;
