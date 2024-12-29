@@ -1,5 +1,5 @@
 use inquire::Text;
-use postfix::{evaluate, token};
+use postfix::{evaluator, lexer};
 
 fn main() {
     loop {
@@ -18,18 +18,18 @@ fn main() {
                 }
             };
 
-        let token_sequence = match token::tokenize(&expression) {
-            Ok(token_sequence) => token_sequence,
-            Err(error) => {
-                println!("{}", error);
+        let lexical_token_sequence = match lexer::lex(&expression) {
+            Ok(lexical_token_sequence) => lexical_token_sequence,
+            Err(_) => {
+                println!("Error lexing expression.");
                 continue;
             }
         };
 
-        let evaluation = match evaluate::evaluate(&token_sequence) {
+        let evaluation = match evaluator::evaluate(&lexical_token_sequence) {
             Ok(evaluation) => evaluation,
-            Err(error) => {
-                println!("{}", error);
+            Err(_) => {
+                println!("Error evaluating lexical token sequence.");
                 continue;
             }
         };
